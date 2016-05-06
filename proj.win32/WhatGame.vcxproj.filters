@@ -24,9 +24,6 @@
     <ClCompile Include="..\Classes\Bullet.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\EnemyPlane.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GammingScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -37,9 +34,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SceneController.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\WingPlane.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,9 +50,6 @@
     <ClInclude Include="..\Classes\Bullet.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\EnemyPlane.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GammingScene.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -69,9 +60,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SceneController.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\WingPlane.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

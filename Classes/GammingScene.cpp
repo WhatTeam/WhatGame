@@ -7,10 +7,7 @@ bool GammingScene::init()
 	auto playerPlane = PlayerPlane::create();
 	addChild(playerPlane);
 
-
-	auto bullet = Bullet::create();
-	addChild(bullet);
-
-
+	playerPlane->attack();
+	
 	return true;
 }

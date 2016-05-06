@@ -8,7 +8,6 @@ public:
 
 	bool init()override;
 
-	void update() { log("1"); };
 private:
 
 };

@@ -32,8 +32,8 @@ bool SceneController::init()
 	auto gammingScene = GammingScene::create();
 	addChild(gammingScene);
 
-/*	auto mainScene = MainScene::create();
-	addChild(mainScene);*/	
+	//auto mainScene = MainScene::create();
+	//addChild(mainScene);
 
 	return true;
 }

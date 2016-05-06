@@ -23,7 +23,7 @@ public:
 	void setTotalLife(float totalLife);
 	void setDamage(float damage);
 
-	void update();
+	void update(float dt);
 
 private:
 	Size visibleSize;

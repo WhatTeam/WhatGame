@@ -21,7 +21,7 @@ bool AirCraft::init()
 	Sprite::init();
 
 	visibleSize=Director::getInstance()->getVisibleSize();
-
+	scheduleUpdate();
 	return true;
 }
 
@@ -75,8 +75,7 @@ void AirCraft::setDamage(float damage)
 	this->damage = damage;
 }
 
-void AirCraft::update()
+void AirCraft::update(float dt)
 {
 	setPosition(getPosition().x+velocity.x, getPosition().y + velocity.y);
-	log("11");
 }
