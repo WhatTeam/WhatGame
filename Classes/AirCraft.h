@@ -23,9 +23,12 @@ public:
 	void setTotalLife(float totalLife);
 	void setDamage(float damage);
 
-	void update(float dt);
-
+	void update(float dt) override;
+	void onKeyPressed(EventKeyboard::KeyCode keyCode);
+	void onKeyReleased(EventKeyboard::KeyCode keyCode);
 private:
+	void attack();
+
 	Size visibleSize;
 	Size bodySize;
 	Vec2 velocity;

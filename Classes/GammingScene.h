@@ -13,4 +13,7 @@ public:
 	bool init()override;
 
 private:
+
+	PlayerPlane *playerPlane;
+
 };

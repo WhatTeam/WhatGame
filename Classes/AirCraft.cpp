@@ -1,4 +1,5 @@
 ﻿#include "AirCraft.h"
+#include "Bullet.h"
 
 AirCraft* AirCraft::create()
 {
@@ -77,5 +78,63 @@ void AirCraft::setDamage(float damage)
 
 void AirCraft::update(float dt)
 {
-	setPosition(getPosition().x+velocity.x, getPosition().y + velocity.y);
+	setPosition(getPosition()+velocity*5);
+}
+
+void AirCraft::onKeyPressed(EventKeyboard::KeyCode keyCode)
+{
+	switch (keyCode)
+	{
+	case EventKeyboard::KeyCode::KEY_W:
+		if (velocity.y < 1)
+			++velocity.y;
+		break;
+	case EventKeyboard::KeyCode::KEY_A:
+		if (velocity.x > -1)
+			--velocity.x;
+		break; 
+	case EventKeyboard::KeyCode::KEY_S:
+		if (velocity.y > -1)
+			--velocity.y;
+		break;
+	case EventKeyboard::KeyCode::KEY_D:
+		if (velocity.x < 1)
+			++velocity.x;
+		break;
+	case EventKeyboard::KeyCode::KEY_J:
+		attack();
+	}
+
+}
+
+void AirCraft::onKeyReleased(EventKeyboard::KeyCode keyCode)
+{
+	switch (keyCode)
+	{
+	case EventKeyboard::KeyCode::KEY_W:
+		if (velocity.y >-1)
+			--velocity.y;
+		break;
+	case EventKeyboard::KeyCode::KEY_A:
+		if (velocity.x <1)
+			++velocity.x;
+		break;
+	case EventKeyboard::KeyCode::KEY_S:
+		if (velocity.y<1)
+			++velocity.y;
+		break;
+	case EventKeyboard::KeyCode::KEY_D:
+		if (velocity.x >-1)
+			--velocity.x;
+		break;
+	}
+}
+
+void AirCraft::attack()
+{
+	auto bullet = Bullet::create();
+	getParent()->addChild(bullet);
+	bullet->setVelocity(Vec2(0, 1));
+	bullet->setPosition(getPosition());
+	bullet->scheduleUpdate();
 }
