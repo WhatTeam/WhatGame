@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "cocos2d.h"
 #include "PlayerPlane.h"
+#include "EnemyPlane.h"
 #include "Bullet.h"
 
 USING_NS_CC;
@@ -12,8 +13,12 @@ public:
 
 	bool init()override;
 
+	void update(float dt) override;
 private:
-
+	Size visibleSize;
 	PlayerPlane *playerPlane;
 
+	Vector<EnemyPlane*> enemyPlanes;
+
+	void createEnemyPlanes(int number, Vec2 position, Vec2 velocity, float interval);
 };

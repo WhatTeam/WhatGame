@@ -6,13 +6,11 @@ USING_NS_CC;
 class AirCraft:public Sprite
 {
 public:
-	static AirCraft* create();
-	static AirCraft* create(Vec2 _position,Vec2 _velocity,float _currentLife,float _totalLife,float _damage);
+	CREATE_FUNC(AirCraft);
 
 	bool init() override;
 
 	Size getVisibleSize();
-	Size getBodySize();
 	Vec2 getVelocity();
 	void setVelocity(Vec2 velocity);
 
@@ -24,14 +22,12 @@ public:
 	void setDamage(float damage);
 
 	void update(float dt) override;
-	void onKeyPressed(EventKeyboard::KeyCode keyCode);
-	void onKeyReleased(EventKeyboard::KeyCode keyCode);
+
+	Vec2 velocity;
+
 private:
-	void attack();
 
 	Size visibleSize;
-	Size bodySize;
-	Vec2 velocity;
 
 	float currentLife;
 	float totalLife;

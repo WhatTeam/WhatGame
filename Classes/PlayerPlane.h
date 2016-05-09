@@ -9,6 +9,11 @@ public:
 
 	bool init()override;
 
+	void onKeyPressed(EventKeyboard::KeyCode keyCode);
+	void onKeyReleased(EventKeyboard::KeyCode keyCode);
+	void update(float dt) override;
 private:
-
+	void attack();
+	bool onAttack;
+	int lastAttack;
 };
