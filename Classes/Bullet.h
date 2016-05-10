@@ -9,5 +9,4 @@ public:
 	bool init()override;
 
 private:
-
 };

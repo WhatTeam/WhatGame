@@ -3,13 +3,17 @@
 bool PlayerPlane::init()
 {
 	AirCraft::init();
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+
 	setTexture("PlayerPlane.png");
 	setScale(0.1f);
-	
-	setPhysicsBody(PhysicsBody::createBox(getContentSize()));
-	scheduleUpdate();
+	setPosition(visibleSize.width / 2, 100);
 
-	setPosition(Vec2(getVisibleSize().width / 2, 30));
+	setPhysicsBody(PhysicsBody::createBox(getContentSize()));
+	getPhysicsBody()->setContactTestBitmask(_PLAYER_PLANE_MASK);
+	getPhysicsBody()->setRotationEnable(false);
+
+	scheduleUpdate();
 	return true;
 }
 void PlayerPlane::onKeyPressed(EventKeyboard::KeyCode keyCode)
@@ -68,26 +72,37 @@ void PlayerPlane::onKeyReleased(EventKeyboard::KeyCode keyCode)
 }
 void PlayerPlane::update(float dt)
 {
-	setPosition(getPosition() + velocity * 5);
-	if (getPosition().x < getContentSize().width/2) setPositionX(getContentSize().width / 2);
-	if (getPosition().x > getVisibleSize().width- getContentSize().width / 2) setPositionX(getVisibleSize().width- getContentSize().width / 2);
-	if (getPosition().y < getContentSize().height / 2) setPositionY(getContentSize().height / 2);
-	if (getPosition().y > getVisibleSize().height- getContentSize().height / 2) setPositionY(getVisibleSize().height- getContentSize().height / 2);
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto bodySize = getContentSize();
 
+	//move
+	setPosition(getPosition() + velocity * 5);
+
+	//K attack
 	if (onAttack && (++lastAttack>10))
 	{
 		attack();
 		lastAttack = 0;
 	}
+
+	//adjust the playerPlane into visible area
+	if (getPosition().x < bodySize.width*getScale() / 2)
+		setPositionX(bodySize.width * getScale() / 2);
+	if (getPosition().x >visibleSize.width-bodySize.width*getScale() / 2)
+		setPositionX(visibleSize.width - bodySize.width * getScale() / 2);
+	if (getPosition().y < bodySize.height*getScale() / 2)
+		setPositionY(bodySize.height * getScale() / 2);
+	if (getPosition().y >visibleSize.height - bodySize.height*getScale() / 2)
+		setPositionY(visibleSize.height - bodySize.height * getScale() / 2);
 }
-
-
 
 void PlayerPlane::attack()
 {
 	auto bullet = Bullet::create();
-	getParent()->addChild(bullet);
 	bullet->setVelocity(Vec2(0, 2));
 	bullet->setPosition(getPosition());
+	bullet->getPhysicsBody()->setContactTestBitmask(_PLAYER_BULLET_MASK);
+	getParent()->addChild(bullet);
+
 	bullet->scheduleUpdate();
 }

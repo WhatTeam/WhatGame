@@ -10,8 +10,8 @@ public:
 	bool init()override;
 
 	void setDelay(float delay);
-
-	void update(float dt) override;
 private:
 	float delay;
+	
+	void attack();
 };

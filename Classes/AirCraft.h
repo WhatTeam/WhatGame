@@ -1,5 +1,10 @@
 ﻿#pragma once
 #include "cocos2d.h"
+//
+#define _PLAYER_PLANE_MASK	0b00000001
+#define _PLAYER_BULLET_MASK	0b01000001
+#define _ENEMY_PLANE_MASK	0b10000001
+#define _ENEMY_BULLET_MASK	0b11000001
 
 USING_NS_CC;
 
@@ -10,27 +15,10 @@ public:
 
 	bool init() override;
 
-	Size getVisibleSize();
 	Vec2 getVelocity();
 	void setVelocity(Vec2 velocity);
-
-	float getCurrentLife();
-	float getTotalLife();
-	float getDamage();
-	void setCurrentLife(float currentLife);
-	void setTotalLife(float totalLife);
-	void setDamage(float damage);
-
 	void update(float dt) override;
 
 	Vec2 velocity;
-
 private:
-
-	Size visibleSize;
-
-	float currentLife;
-	float totalLife;
-	float damage;
 };
-
