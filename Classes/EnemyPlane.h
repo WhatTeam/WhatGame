@@ -9,9 +9,13 @@ public:
 
 	bool init()override;
 
-	void setDelay(float delay);
-private:
-	float delay;
+	void update(float dt) override;
 	
+	static void createEnemyPlanes();
+
+private:
+	static Size visibleSize;
+	static Rect screenArea;
+
 	void attack();
 };

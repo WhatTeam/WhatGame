@@ -39,6 +39,9 @@
     <ClCompile Include="..\Classes\EnemyPlane.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameOverScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -68,6 +71,9 @@
     <ClInclude Include="..\Classes\EnemyPlane.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\GameOverScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -88,6 +94,15 @@
       <Filter>resource</Filter>
     </Image>
     <Image Include="..\Resources\HitPlane.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\GameOverLogo.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\TryAgain.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\Exit.png">
       <Filter>resource</Filter>
     </Image>
   </ItemGroup>

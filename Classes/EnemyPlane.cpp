@@ -1,5 +1,8 @@
 ﻿#include "EnemyPlane.h"
 
+Size EnemyPlane::visibleSize = Director::getInstance()->getVisibleSize();
+Rect EnemyPlane::screenArea= CCRectMake(0, 0, visibleSize.width, visibleSize.height);
+
 bool EnemyPlane::init()
 {
 	AirCraft::init();
@@ -14,9 +17,14 @@ bool EnemyPlane::init()
 	return true;
 }
 
-void EnemyPlane::setDelay(float delay)
+void EnemyPlane::update(float dt)
 {
-	this->delay = delay;
+	Vec2 position = getPosition();
+	setPosition(position + velocity);
+	attack();
+	/*if (!screenArea.containsPoint(position))
+		this->autorelease();*/
+
 }
 
 void EnemyPlane::attack()

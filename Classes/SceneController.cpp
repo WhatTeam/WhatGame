@@ -30,6 +30,7 @@ bool SceneController::init()
 		return false;
 	}
 	
+
 	auto gammingScene = GammingScene::create();
 	addChild(gammingScene);
 
