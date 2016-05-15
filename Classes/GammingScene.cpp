@@ -11,19 +11,20 @@ Scene* GammingScene::createScene()
 bool GammingScene::init()
 {
 	LayerColor::initWithColor(Color4B::WHITE);
-
-	//create a physics edge
 	visibleSize = Director::getInstance()->getVisibleSize();
-	setContentSize(visibleSize);
-	setPhysicsBody(PhysicsBody::createEdgeBox(visibleSize));
+	score = 0;
+	scoreLabel = LabelTTF::create();
+	scoreLabel->setString("0");
+	scoreLabel->setFontSize(36);
+	scoreLabel->setColor(Color3B::BLACK);
+	scoreLabel->setPosition(30, visibleSize.height - 30);
+	addChild(scoreLabel);
 
 	//create the playerPlane
 	playerPlane = PlayerPlane::create();
 	addChild(playerPlane);
-
-	//create the enemyPlane
-	createEnemyPlanes(20, Vec2(200, 200), Vec2(0, 0), 1);
-
+	schedule(schedule_selector(GammingScene::addEnemyPlane), 0.5, -1, 1);
+	
 	//add a keyboard listener
 	auto keyBoardListener = EventListenerKeyboard::create();
 	keyBoardListener->onKeyPressed = CC_CALLBACK_2(GammingScene::onKeyPressed, this);
@@ -35,13 +36,12 @@ bool GammingScene::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(GammingScene::onContactBegin, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	scheduleUpdate();
 	return true;
 }
 
 void GammingScene::update(float dt)
 {
-
+	
 }
 
 void GammingScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*)
@@ -58,35 +58,33 @@ bool GammingScene::onContactBegin(PhysicsContact& contact)
 {//get the two contacted body and deal with them
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
-	switch (bodyA->getContactTestBitmask() ^ bodyB->getContactTestBitmask())
+	switch (bodyA->getContactTestBitmask() | bodyB->getContactTestBitmask())
 	{
-	case _PLAYER_BULLET_MASK ^ _ENEMY_PLANE_MASK:
+	case _PLAYER_BULLET_MASK | _ENEMY_PLANE_MASK:
 	{
-		Director::getInstance()->replaceScene(GameOverScene::createScene());
+		/*Director::getInstance()->replaceScene(GameOverScene::createScene());*/
 	}
-	case _PLAYER_PLANE_MASK ^ _ENEMY_PLANE_MASK:
+	case _PLAYER_PLANE_MASK | _ENEMY_PLANE_MASK:
 	{
 		this->removeChild(bodyA->getNode());
 		this->removeChild(bodyB->getNode());
+		scoreLabel->setString(std::to_string(++score));
 		break;
 	}
-	case _PLAYER_PLANE_MASK ^_ENEMY_BULLET_MASK:
+	case _PLAYER_PLANE_MASK | _ENEMY_BULLET_MASK:
 	{
-		Director::getInstance()->replaceScene(GameOverScene::createScene());
+		/*Director::getInstance()->replaceScene(GameOverScene::createScene());*/
 	}
 	}
 	return true;
 }
 
-void GammingScene::createEnemyPlanes(int number, Vec2 position, Vec2 velocity, float interval)
+void GammingScene::addEnemyPlane(float dt)
 {
-	for (int i = 0; i < number; ++i)
-	{
-		auto enemyPlane = EnemyPlane::create();
-		addChild(enemyPlane);
-		enemyPlane->setPosition((enemyPlane->getContentSize().width + 5)*i*enemyPlane->getScale(), position.y);
-		enemyPlane->setVelocity(velocity);
-		enemyPlane->scheduleUpdate();
-	}
-
+	log("addPlane");
+	auto enemyPlane= EnemyPlane::create();
+	enemyPlane->setPosition(visibleSize.width *rand_0_1(), visibleSize.height);
+	enemyPlane->setVelocity(Vec2(0, -2));
+	enemyPlane->scheduleUpdate();
+	addChild(enemyPlane);
 }

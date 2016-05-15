@@ -11,11 +11,11 @@ public:
 
 	void update(float dt) override;
 	
-	static void createEnemyPlanes();
+	void attack();
 
 private:
 	static Size visibleSize;
 	static Rect screenArea;
+	int lastAttack;
 
-	void attack();
 };

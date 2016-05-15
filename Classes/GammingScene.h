@@ -20,11 +20,12 @@ public:
 private:
 	Size visibleSize;
 	PlayerPlane *playerPlane;
+	LabelTTF *scoreLabel;
+	int score;
 
-	Vector<EnemyPlane*> enemyPlanes;
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event*);
 	void onKeyReleased(EventKeyboard::KeyCode keyCode, Event*);
 	bool onContactBegin(PhysicsContact& contact);
 
-	void createEnemyPlanes(int number, Vec2 position, Vec2 velocity, float interval);
+	void addEnemyPlane(float dt);
 };
